@@ -1,7 +1,7 @@
 # Maintainer: Infernio <infernio at icloud dot com>
 
 pkgname=wrye-bash
-pkgver=312.1
+pkgver=313
 pkgrel=1
 pkgdesc="A swiss army knife for modding Bethesda games"
 arch=('any')
@@ -20,11 +20,11 @@ source=("${pkgname}_${pkgver}.tar.gz::https://github.com/wrye-bash/wrye-bash/arc
         "wrye-bash.desktop"
         "0001-Make-BashBugDump-work-globally.patch"
         "0002-Add-support-for-global-docs-to-readme_url.patch")
-sha256sums=('8c61e30cc79142ddd20c32ae6f83d1d10ad6ea9125d32e26bf0de3a0367b9a57'
+sha256sums=('b340a572bd843d3333dc0d96893835fcc0299fb5beb8202b863dc8f334463b90'
             'ae3dedbd0dfba70bf159e7420e98e9ccd906b9e7c5a602588869d39849302a93'
             'dd2c34488c4d8f3f43311bdcf9c32d6e7645933eb32eb03f0456adfbed35594f'
-            '67a283615cb8f6eea643b0cdce874cc563a4b50edca00af0bd6351e2dbdfe3b5'
-            '24831df3a9fbbbb4347eed3cc0ddce6222d8b1b4051cc7c56f28400de974ec24')
+            'ef437d64df5d39587280f6c1706cadc9fc20546ff2cc31ddb8424f906bb8fc3c'
+            'c91e4fc3f0c3ba5a1e0f6e6bc061d9cc5220372af9fad9e5c4a14f87333ea3f2')
 
 prepare() {
     cd "${srcdir}/${pkgname}-${pkgver}"
