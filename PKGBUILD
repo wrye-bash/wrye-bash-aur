@@ -2,7 +2,7 @@
 
 pkgname=wrye-bash
 pkgver=313
-pkgrel=1
+pkgrel=2
 pkgdesc="A swiss army knife for modding Bethesda games"
 arch=('any')
 license=('GPL3')
@@ -18,20 +18,17 @@ backup=('opt/wrye-bash/bash.ini')
 source=("${pkgname}_${pkgver}.tar.gz::https://github.com/wrye-bash/wrye-bash/archive/v${pkgver}.tar.gz"
         "wrye-bash"
         "wrye-bash.desktop"
-        "0001-Make-BashBugDump-work-globally.patch"
-        "0002-Add-support-for-global-docs-to-readme_url.patch")
+        "0001-Make-BashBugDump-work-globally.patch")
 sha256sums=('b340a572bd843d3333dc0d96893835fcc0299fb5beb8202b863dc8f334463b90'
             'ae3dedbd0dfba70bf159e7420e98e9ccd906b9e7c5a602588869d39849302a93'
             'dd2c34488c4d8f3f43311bdcf9c32d6e7645933eb32eb03f0456adfbed35594f'
-            'ef437d64df5d39587280f6c1706cadc9fc20546ff2cc31ddb8424f906bb8fc3c'
-            'c91e4fc3f0c3ba5a1e0f6e6bc061d9cc5220372af9fad9e5c4a14f87333ea3f2')
+            'ef437d64df5d39587280f6c1706cadc9fc20546ff2cc31ddb8424f906bb8fc3c')
 
 prepare() {
     cd "${srcdir}/${pkgname}-${pkgver}"
 
     # Apply the patchset to make WB (mostly) work as a global installation on Linux
     patch -Np1 -i ../0001-Make-BashBugDump-work-globally.patch
-    patch -Np1 -i ../0002-Add-support-for-global-docs-to-readme_url.patch
 
     # Update checking is pointless with pacman available
     sed -i "s/'bash.update_check.enabled': True/'bash.update_check.enabled': False/" Mopy/bash/basher/constants.py
@@ -66,6 +63,7 @@ package() {
     mkdir -p "${pkgdir}"/opt/$pkgname
     cp -a "Mopy/Bash Patches" "${pkgdir}"/opt/$pkgname
     cp -a "Mopy/bash" "${pkgdir}"/opt/$pkgname
+    cp -a "Mopy/Docs" "${pkgdir}"/opt/$pkgname
     cp -a "Mopy/taglists" "${pkgdir}"/opt/$pkgname
     cp -a "Mopy/templates" "${pkgdir}"/opt/$pkgname
     install -Dm644 "Mopy/Wrye Bash Launcher.pyw" "${pkgdir}"/opt/$pkgname
@@ -79,10 +77,4 @@ package() {
     # Install the license to /usr
     install -Dm644 LICENSE.md "${pkgdir}"/usr/share/licenses/$pkgname/LICENSE.md
     install -Dm644 Mopy/LICENSE-THIRD-PARTY "${pkgdir}"/usr/share/licenses/$pkgname/LICENSE-THIRD-PARTY
-
-    # Install the docs to /usr, edited to make them work with the local fs layout
-    mkdir -p "${pkgdir}"/usr/share/doc
-    find Mopy/Docs -type f -iname "*.html" -exec sed -i "s|../bash/|/opt/wrye-bash/bash/|" {} \;
-    find Mopy/Docs -type f -iname "*.css" -exec sed -i "s|../../bash/|/opt/wrye-bash/bash/|" {} \;
-    cp -a Mopy/Docs "${pkgdir}"/usr/share/doc/$pkgname
 }
