@@ -7,7 +7,7 @@ pkgdesc="A swiss army knife for modding Bethesda games"
 arch=('any')
 license=('GPL-3.0-or-later')
 url="https://github.com/wrye-bash/wrye-bash"
-depends=('binutils' 'hicolor-icon-theme' 'p7zip' 'python' 'python-chardet' 'python-lz4' 'python-reflink' 'python-vdf' 'python-wxpython' 'python-yaml' 'xdg-utils')
+depends=('7zip' 'binutils' 'hicolor-icon-theme' 'python' 'python-chardet' 'python-lz4' 'python-reflink' 'python-vdf' 'python-wxpython' 'python-yaml' 'xdg-utils')
 optdepends=('python-lxml: FOMOD schema validation'
             'python-pymupdf: PDF support in the doc browser'
             'python-requests: Various Internet-based functionality'
