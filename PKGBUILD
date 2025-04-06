@@ -74,6 +74,10 @@ package() {
     # There's no need to package the tests
     rm -r "${pkgdir}"/opt/$pkgname/bash/tests
 
+    # Only the .mo files matter for an end-user build
+    rm "${pkgdir}"/opt/$pkgname/bash/l10n/*.po
+    rm "${pkgdir}"/opt/$pkgname/bash/l10n/template.pot
+
     # pacman handles changing config files fine, so skip the _default.ini
     install -Dm644 "Mopy/bash_default.ini" "${pkgdir}"/opt/$pkgname/bash.ini
 
