@@ -1,11 +1,11 @@
 # Maintainer: Infernio <infernio at icloud dot com>
 
 pkgname=wrye-bash
-pkgver=313
-pkgrel=2
+pkgver=314
+pkgrel=1
 pkgdesc="A swiss army knife for modding Bethesda games"
 arch=('any')
-license=('GPL3')
+license=('GPL-3.0-or-later')
 url="https://github.com/wrye-bash/wrye-bash"
 depends=('binutils' 'hicolor-icon-theme' 'p7zip' 'python' 'python-chardet' 'python-lz4' 'python-reflink' 'python-vdf' 'python-wxpython' 'python-yaml' 'xdg-utils')
 optdepends=('python-lxml: FOMOD schema validation'
@@ -19,7 +19,7 @@ source=("${pkgname}_${pkgver}.tar.gz::https://github.com/wrye-bash/wrye-bash/arc
         "wrye-bash"
         "wrye-bash.desktop"
         "0001-Make-BashBugDump-work-globally.patch")
-sha256sums=('b340a572bd843d3333dc0d96893835fcc0299fb5beb8202b863dc8f334463b90'
+sha256sums=('663c1d1043483bcfbc0ccfb60b571be7b8bbc6670e93821035ad846cca106f8c'
             'ae3dedbd0dfba70bf159e7420e98e9ccd906b9e7c5a602588869d39849302a93'
             'dd2c34488c4d8f3f43311bdcf9c32d6e7645933eb32eb03f0456adfbed35594f'
             'ef437d64df5d39587280f6c1706cadc9fc20546ff2cc31ddb8424f906bb8fc3c')
@@ -42,6 +42,9 @@ prepare() {
 
 build() {
     cd "${srcdir}/${pkgname}-${pkgver}"
+
+    # Compile the translations
+    python scripts/compile_l10n.py
 
     # Compile all WB source files
     /usr/bin/python -O -m compileall Mopy/bash
